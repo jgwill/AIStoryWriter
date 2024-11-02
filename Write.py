@@ -345,8 +345,35 @@ for i in range(1, NumChapters + 1):
 
     except Exception as e:
         SysLogger.Log(f"Failed to generate Chapter {i}: {str(e)}", 1)
-        # Optionally, implement retry logic or exit
-        continue  # Skip to the next chapter
+        # Implement retry logic or append a placeholder to maintain list consistency
+        retry_count = 0
+        max_retries = 3
+        while retry_count < max_retries:
+            SysLogger.Log(f"Retrying Chapter {i} generation (Attempt {retry_count + 1})", 2)
+            try:
+                Chapter = Writer.Chapter.ChapterGenerator.GenerateChapter(
+                    Interface,
+                    SysLogger,
+                    i,
+                    NumChapters,
+                    Outline,
+                    Chapters,
+                    Writer.Config.OUTLINE_QUALITY,
+                    BaseContext,
+                )
+                time.sleep(SLEEP_TIME)
+
+                Chapter = f"### Chapter {i}\n\n{Chapter}"
+                Chapters.append(Chapter)
+                ChapterWordCount = Writer.Statistics.GetWordCount(Chapter)
+                SysLogger.Log(f"Chapter Word Count: {ChapterWordCount}", 2)
+                break  # Exit retry loop on success
+            except Exception as retry_e:
+                SysLogger.Log(f"Retry {retry_count + 1} failed for Chapter {i}: {str(retry_e)}", 1)
+                retry_count += 1
+        else:
+            SysLogger.Log(f"Failed to generate Chapter {i} after {max_retries} retries. Skipping.", 1)
+            Chapters.append(f"### Chapter {i}\n\n*Generation Failed: Chapter skipped.*")
 
 
 # Now edit the whole thing together
