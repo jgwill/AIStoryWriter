@@ -174,8 +174,6 @@ class Interface:
                 del _Messages[-1] # Remove failed attempt
                 Response = self.ChatAndStreamResponse(_Logger, _Messages, _Model, random.randint(0, 99999), _Format = "JSON")
 
-
-
     def ChatAndStreamResponse(
         self,
         _Logger,
@@ -261,9 +259,10 @@ class Interface:
                     ModelOptions["temperature"] = 0
                 _Logger.Log("Using Ollama JSON Format", 4)
 
+            # Change argument from 'messages' to 'prompt' for Ollama
             Stream = self.Clients[_Model].chat(
                 model=ProviderModel,
-                messages=_Messages,
+                prompt=_Messages[-1]["content"],  # Use the latest message content as prompt
                 stream=True,
                 options=ModelOptions,
             )
@@ -285,7 +284,7 @@ class Interface:
                             f"Max Retries Exceeded During Generation, Aborting!", 7
                         )
                         raise Exception(
-                            "Generation Failed, Max Retires Exceeded, Aborting"
+                            "Generation Failed, Max Retries Exceeded, Aborting"
                         )
 
         elif Provider == "google":
@@ -331,7 +330,7 @@ class Interface:
                         MaxRetries -= 1
                     else:
                         _Logger.Log(
-                            f"Max Retries Exceeded During Generation, Aborting!", 7
+                            f"Max Retires Exceeded During Generation, Aborting!", 7
                         )
                         raise Exception(
                             "Generation Failed, Max Retires Exceeded, Aborting"
