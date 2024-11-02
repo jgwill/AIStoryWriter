@@ -174,6 +174,13 @@ Parser.add_argument(
     default=True,
     help="Use the new scene-by-scene generation pipeline as an initial starting point for chapter writing",
 )
+Parser.add_argument(
+    "-SleepTime",
+    default=20,
+    type=int,
+    help="Time to wait between requests in seconds",
+)
+
 Args = Parser.parse_args()
 
 
@@ -215,6 +222,8 @@ Writer.Config.ENABLE_FINAL_EDIT_PASS = Args.EnableFinalEditPass
 Writer.Config.OPTIONAL_OUTPUT_NAME = Args.Output
 Writer.Config.SCENE_GENERATION_PIPELINE = Args.SceneGenerationPipeline
 Writer.Config.DEBUG = Args.Debug
+
+SLEEP_TIME = Args.SleepTime
 
 # Get a list of all used providers
 Models = [
@@ -289,6 +298,7 @@ if Writer.Config.EXPAND_OUTLINE:
             Interface, SysLogger, Chapter, Outline, Messages
         )
         ChapterOutlines.append(ChapterOutline)
+        time.sleep(SLEEP_TIME)
 
 
 # Create MegaOutline
@@ -326,6 +336,7 @@ for i in range(1, NumChapters + 1):
         Writer.Config.OUTLINE_QUALITY,
         BaseContext,
     )
+    time.sleep(SLEEP_TIME)
 
     Chapter = f"### Chapter {i}\n\n{Chapter}"
     Chapters.append(Chapter)
