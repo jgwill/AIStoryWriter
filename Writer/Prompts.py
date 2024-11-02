@@ -634,3 +634,11 @@ Please tailor your response to be written for the general public's entertainment
 Make sure your response is well thought out and creative. Take a moment to make sure it follows the provided scene outline, and ensure that it also fits into the main story outline.
 ###############
 """
+
+ERROR_RESOLUTION_PROMPT = """
+You encountered an error during chapter generation: '{error_message}'.
+
+Please analyze the context and provide a solution to resolve this issue. Use the previous successful content and its original prompt to guide your resolution. Ensure that the next attempt includes the necessary context to prevent this error from occurring again.
+
+Response should only contain the revised prompt or steps to fix the issue and generate what is needed to continue the story where we are.
+"""
