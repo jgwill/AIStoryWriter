@@ -267,25 +267,33 @@ class Interface:
                 options=ModelOptions,
             )
             MaxRetries = 3
-
-            while True:
+            Retries = 0
+            while Retries < MaxRetries:
                 try:
                     _Messages.append(self.StreamResponse(Stream, Provider))
                     break
                 except Exception as e:
-                    if MaxRetries > 0:
-                        _Logger.Log(
-                            f"Exception During Generation '{e}', {MaxRetries} Retries Remaining",
-                            7,
-                        )
-                        MaxRetries -= 1
+                    if '429' in str(e):
+                        _Logger.Log("429 Error: Resource exhausted. Waiting 60 seconds before retrying.", 2)
+                        time.sleep(60)  # Wait before retrying
                     else:
-                        _Logger.Log(
-                            f"Max Retries Exceeded During Generation, Aborting!", 7
-                        )
-                        raise Exception(
-                            "Generation Failed, Max Retries Exceeded, Aborting"
-                        )
+                        if MaxRetries > 0:
+                            _Logger.Log(
+                                f"Exception During Generation '{e}', {MaxRetries} Retries Remaining",
+                                7,
+                            )
+                            MaxRetries -= 1
+                        else:
+                            _Logger.Log(
+                                f"Max Retries Exceeded During Generation, Aborting!", 7
+                            )
+                            raise Exception(
+                                "Generation Failed, Max Retries Exceeded, Aborting"
+                            )
+                    Retries += 1
+                    if Retries >= MaxRetries:
+                        _Logger.Log("Max Retries Exceeded During Generation, Aborting!", 1)
+                        raise Exception("Generation Failed, Max Retries Exceeded, Aborting")
 
         elif Provider == "google":
 
