@@ -310,17 +310,15 @@ class Interface:
             while True:
                 try:
                     Stream = self.Clients[_Model].generate_content(
-                        contents=_Messages,
-                        stream=True,
-                        safety_settings={
-                            HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-                            HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-                            HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-                            HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-                        },
+                        prompt=_Messages,  # Changed from 'messages' to 'prompt'
+                        seed=_SeedOverride,
+                        format=_Format
                     )
                     _Messages.append(self.StreamResponse(Stream, Provider))
                     break
+                except TypeError as te:
+                    _Logger.Log(f"TypeError in generate_content: {str(te)}", 1)
+                    raise Exception(f"Generation Failed Due to TypeError: {str(te)}")
                 except Exception as e:
                     if MaxRetries > 0:
                         _Logger.Log(
