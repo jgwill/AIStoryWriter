@@ -325,23 +325,28 @@ if Writer.Config.EXPAND_OUTLINE:
 SysLogger.Log("Starting Chapter Writing", 5)
 Chapters = []
 for i in range(1, NumChapters + 1):
+    try:
+        Chapter = Writer.Chapter.ChapterGenerator.GenerateChapter(
+            Interface,
+            SysLogger,
+            i,
+            NumChapters,
+            Outline,
+            Chapters,
+            Writer.Config.OUTLINE_QUALITY,
+            BaseContext,
+        )
+        time.sleep(SLEEP_TIME)
 
-    Chapter = Writer.Chapter.ChapterGenerator.GenerateChapter(
-        Interface,
-        SysLogger,
-        i,
-        NumChapters,
-        Outline,
-        Chapters,
-        Writer.Config.OUTLINE_QUALITY,
-        BaseContext,
-    )
-    time.sleep(SLEEP_TIME)
+        Chapter = f"### Chapter {i}\n\n{Chapter}"
+        Chapters.append(Chapter)
+        ChapterWordCount = Writer.Statistics.GetWordCount(Chapter)
+        SysLogger.Log(f"Chapter Word Count: {ChapterWordCount}", 2)
 
-    Chapter = f"### Chapter {i}\n\n{Chapter}"
-    Chapters.append(Chapter)
-    ChapterWordCount = Writer.Statistics.GetWordCount(Chapter)
-    SysLogger.Log(f"Chapter Word Count: {ChapterWordCount}", 2)
+    except Exception as e:
+        SysLogger.Log(f"Failed to generate Chapter {i}: {str(e)}", 1)
+        # Optionally, implement retry logic or exit
+        continue  # Skip to the next chapter
 
 
 # Now edit the whole thing together

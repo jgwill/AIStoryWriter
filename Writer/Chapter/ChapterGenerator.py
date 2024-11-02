@@ -297,6 +297,41 @@ def GenerateChapter(
     #     _Logger.Log(f"Done Generating Initial Chapter (Stage 4: Final Pass)  {_ChapterNum}/{_TotalChapters}", 5)
     Chapter: str = Stage3Chapter
 
+    try:
+        # Existing chapter generation stages
+        # Stage 1 to Stage 5 as previously defined
+        # ...
+        Chapter: str = Stage3Chapter
+
+    except Exception as e:
+        _Logger.Log(f"Error during Chapter Generation: {str(e)}", 1)
+        
+        # Prepare error resolution prompt
+        ErrorResolutionPrompt = Writer.Prompts.ERROR_RESOLUTION_PROMPT.format(
+            error_message=str(e)
+        )
+        
+        # Append error resolution to message history
+        Messages = MesssageHistory.copy()
+        Messages.append(Interface.BuildUserQuery(ErrorResolutionPrompt))
+        
+        # Attempt to get resolution from LLM
+        ResolutionMessages = Interface.SafeGenerateText(
+            _Logger,
+            Messages,
+            Writer.Config.CHAPTER_REVISION_WRITER_MODEL,
+            _MinWordCount=50
+        )
+        Resolution: str = Interface.GetLastMessageText(ResolutionMessages)
+        
+        _Logger.Log(f"LLM Resolution: {Resolution}", 2)
+        
+        # Implement resolution (e.g., revise the prompt or use previous successful content)
+        # This is a placeholder for the actual implementation based on LLM's response
+        # ...
+
+        raise Exception("Chapter Generation Error Resolved, please retry.")
+
     #### Stage 5: Revision Cycle
     if Writer.Config.CHAPTER_NO_REVISIONS:
         _Logger.Log(f"Chapter Revision Disabled In Config, Exiting Now", 5)
