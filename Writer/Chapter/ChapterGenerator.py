@@ -7,6 +7,7 @@ import Writer.Chapter.ChapterGenSummaryCheck
 import Writer.Prompts
 
 import Writer.Scene.ChapterByScene
+from Writer.Statistics import IsValidChapter
 
 def GenerateChapter(
     Interface,
@@ -295,42 +296,18 @@ def GenerateChapter(
     #     Messages = Interface.SafeGenerateText(_Logger, Messages, Writer.Config.CHAPTER_STAGE4_WRITER_MODEL)
     #     Chapter:str = Interface.GetLastMessageText(Messages)
     #     _Logger.Log(f"Done Generating Initial Chapter (Stage 4: Final Pass)  {_ChapterNum}/{_TotalChapters}", 5)
-    Chapter: str = Stage3Chapter
-
     try:
-        # Existing chapter generation stages
-        # Stage 1 to Stage 5 as previously defined
-        # ...
-        Chapter: str = Stage3Chapter
-
+        Chapter = Stage3Chapter
+        if not Chapter.strip():
+            raise Exception("Contents must not be empty")
+        if not IsValidChapter(Chapter):
+            _Logger.Log(f"SafeGenerateText: Generation Failed Due to Short Response ({GetWordCount(Chapter)}, min is 120), Reattempting Output", 7)
+            raise Exception("Contents too short")
+        return Chapter
     except Exception as e:
-        _Logger.Log(f"Error during Chapter Generation: {str(e)}", 1)
-        
-        # Prepare error resolution prompt
-        ErrorResolutionPrompt = Writer.Prompts.ERROR_RESOLUTION_PROMPT.format(
-            error_message=str(e)
-        )
-        
-        # Append error resolution to message history
-        Messages = MesssageHistory.copy()
-        Messages.append(Interface.BuildUserQuery(ErrorResolutionPrompt))
-        
-        # Attempt to get resolution from LLM
-        ResolutionMessages = Interface.SafeGenerateText(
-            _Logger,
-            Messages,
-            Writer.Config.CHAPTER_REVISION_WRITER_MODEL,
-            _MinWordCount=50
-        )
-        Resolution: str = Interface.GetLastMessageText(ResolutionMessages)
-        
-        _Logger.Log(f"LLM Resolution: {Resolution}", 2)
-        
-        # Implement resolution (e.g., revise the prompt or use previous successful content)
-        # This is a placeholder for the actual implementation based on LLM's response
-        # ...
-
-        raise Exception("Chapter Generation Error Resolved, please retry.")
+        _Logger.Log(f"Exception During Generation '{str(e)}', {Writer.Config.CHAPTER_MAX_REVISIONS} Retries Remaining", 7)
+        # Implement additional error handling or retries here
+        raise e
 
     #### Stage 5: Revision Cycle
     if Writer.Config.CHAPTER_NO_REVISIONS:
