@@ -369,6 +369,10 @@ for i in range(1, NumChapters + 1):
                 SysLogger.Log(f"Chapter Word Count: {ChapterWordCount}", 2)
                 break  # Exit retry loop on success
             except Exception as retry_e:
+                time.sleep(2)
+                if '429' in str(retry_e):
+                    SysLogger.Log(f"429 Error: Quota exceeded. Waiting 60 seconds before retrying.", 2)
+                    time.sleep(60)
                 SysLogger.Log(f"Retry {retry_count + 1} failed for Chapter {i}: {str(retry_e)}", 1)
                 retry_count += 1
         else:
