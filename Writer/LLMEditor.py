@@ -1,3 +1,4 @@
+import time
 import Writer.PrintUtils
 import Writer.Prompts
 
@@ -115,6 +116,7 @@ def GetChapterRating(Interface, _Logger, _Chapter: str):
 
     Iters: int = 0
     while True:
+        time.sleep(5)
 
         RawResponse = Interface.GetLastMessageText(History)
         RawResponse = RawResponse.replace("`", "")

@@ -277,8 +277,9 @@ class Interface:
                     time.sleep(22)
                     if '429' in str(e):
                         _Logger.Log("429 Error: Resource exhausted. Waiting 60 seconds before retrying.", 2)
-                        time.sleep(60)  # Wait before retrying
+                        time.sleep(66)  # Wait before retrying
                     else:
+                        time.sleep(22)
                         if MaxRetries > 0:
                             _Logger.Log(
                                 f"Exception During Generation '{e}', {MaxRetries} Retries Remaining",
@@ -292,7 +293,6 @@ class Interface:
                             raise Exception(
                                 "Generation Failed, Max Retries Exceeded, Aborting"
                             )
-                        time.sleep(22)
                     Retries += 1
                     if Retries >= MaxRetries:
                         _Logger.Log("Max Retries Exceeded During Generation, Aborting!", 1)
@@ -317,8 +317,9 @@ class Interface:
                 if "role" in m and m["role"] == "system":
                     m["role"] = "user"
 
-            MaxRetries = 5
+            MaxRetries = 7
             while True:
+                time.sleep(4)
                 try:
                     Stream = self.Clients[_Model].generate_content(
                         contents=_Messages,

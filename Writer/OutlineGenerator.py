@@ -1,3 +1,4 @@
+import time
 import Writer.LLMEditor
 import Writer.PrintUtils
 import Writer.Config
@@ -50,6 +51,7 @@ def GenerateOutline(Interface, _Logger, _OutlinePrompt, _QualityThreshold: int =
     Rating: int = 0
     Iterations: int = 0
     while True:
+        time.sleep(4)
         Iterations += 1
         Feedback = Writer.LLMEditor.GetFeedbackOnOutline(Interface, _Logger, Outline)
         Rating = Writer.LLMEditor.GetOutlineRating(Interface, _Logger, Outline)
