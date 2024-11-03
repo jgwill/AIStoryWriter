@@ -14,7 +14,7 @@ Generate full-length novels with AI! Harness the power of large language models 
 - Cloud provider support (currently Google): Access high-performance computing resources for those without powerful GPUs.
 - Flexible configuration options: Fine-tune the generation process through easily modifiable settings.
 - Works across all operating systems
-- Supoorts translation of the generated stories in all languages
+- Supports translation of the generated stories in all languages
 
 ## 🏁 Quick Start
 
@@ -116,6 +116,15 @@ We're excited to hear from you! Your feedback and contributions are crucial to i
 3. 🔬 **Experiment and Share**: Try different model combinations and share your results. Your experiments can help improve the system for everyone!
 
 4. 🖊️ **Submit Pull Requests**: Ready to contribute code? We welcome pull requests for improvements and new features.
+
+**New Features:**
+- `--SavePlot`: Save the plot stage to a file.
+- `--SaveCharacterDevelopment`: Save the character development stage to a file.
+- `--SaveDialogue`: Save the dialogue stage to a file.
+- `--BaseDir <MY_STORY_WORKDIR>`: Specify the directory to save the stages.
+
+**Example Usage:**
+```
 
 5. 💬 **Join our Discord**: For real-time chat, support, and community engagement, [join our Discord server](https://discord.gg/R2SySWDr2s).
 

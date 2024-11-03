@@ -18,12 +18,14 @@ import Writer.Chapter.ChapterGenerator
 import Writer.StoryInfo
 import Writer.NovelEditor
 import Writer.Translator
+from Writer.Interface.Wrapper import Interface  # Add missing import
 
 
 # Setup Argparser
 Parser = argparse.ArgumentParser()
 Parser.add_argument("-Prompt", help="Path to file containing the prompt")
 Parser.add_argument(
+    "-Output",
     "-Output",
     default="",
     type=str,
@@ -180,6 +182,27 @@ Parser.add_argument(
     type=int,
     help="Time to wait between requests in seconds",
 )
+Parser.add_argument(
+    "--SavePlot",
+    action="store_true",
+    help="Save the plot stage to a file",
+)
+Parser.add_argument(
+    "--SaveCharacterDevelopment",
+    action="store_true",
+    help="Save the character development stage to a file",
+)
+Parser.add_argument(
+    "--SaveDialogue",
+    action="store_true",
+    help="Save the dialogue stage to a file",
+)
+Parser.add_argument(
+    "--BaseDir",
+    type=str,
+    default="story_workdir",
+    help="Directory to save the stages",
+)
 
 Args = Parser.parse_args()
 
@@ -223,7 +246,28 @@ Writer.Config.OPTIONAL_OUTPUT_NAME = Args.Output
 Writer.Config.SCENE_GENERATION_PIPELINE = Args.SceneGenerationPipeline
 Writer.Config.DEBUG = Args.Debug
 
+interface = Interface()
+plot, char_dev, dialogue = interface.process_stages()
+
 SLEEP_TIME = Args.SleepTime
+
+base_dir = Args.BaseDir
+os.makedirs(base_dir)
+
+if Args.SavePlot:
+    plot_path = os.path.join(base_dir, "plot_stage.txt")
+    with open(plot_path, "w") as f:
+        f.write(plot)
+
+if Args.SaveCharacterDevelopment:
+    char_dev_path = os.path.join(base_dir, "character_development_stage.txt")
+    with open(char_dev_path, "w") as f:
+        f.write(char_dev)
+
+if Args.SaveDialogue:
+    dialogue_path = os.path.join(base_dir, "dialogue_stage.txt")
+    with open(dialogue_path, "w") as f:
+        f.write(dialogue)
 
 # Get a list of all used providers
 Models = [
@@ -379,6 +423,18 @@ for i in range(1, NumChapters + 1):
             SysLogger.Log(f"Failed to generate Chapter {i} after {max_retries} retries. Skipping.", 1)
             Chapters.append(f"### Chapter {i}\n\n*Generation Failed: Chapter skipped.*")
 
+# Load stages if they exist
+if os.path.exists(plot_path):
+    with open(plot_path, "r") as f:
+        plot = f.read()
+
+if os.path.exists(char_dev_path):
+    with open(char_dev_path, "r") as f:
+        char_dev = f.read()
+
+if os.path.exists(dialogue_path):
+    with open(dialogue_path, "r") as f:
+        dialogue = f.read()
 
 # Now edit the whole thing together
 StoryBodyText: str = ""
@@ -515,4 +571,5 @@ Please scroll to the bottom if you wish to read that.
 
 # Save JSON
 with open(f"{FName}.json", "w", encoding="utf-8") as F:
+    F.write(json.dumps(StoryInfoJSON, indent=4))
     F.write(json.dumps(StoryInfoJSON, indent=4))

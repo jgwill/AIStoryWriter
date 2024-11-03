@@ -1,15 +1,11 @@
-INITIAL_OUTLINE_WRITER_MODEL = (
-    "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
-)
+INITIAL_OUTLINE_WRITER_MODEL = "google://gemini-1.5-flash-002"
 #gemini-1.5-flash-002
 
-CHAPTER_OUTLINE_WRITER_MODEL = (
-    "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
-)
+CHAPTER_OUTLINE_WRITER_MODEL = "google://gemini-1.5-flash-002"
 CHAPTER_STAGE1_WRITER_MODEL = "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
 CHAPTER_STAGE2_WRITER_MODEL = "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
 CHAPTER_STAGE3_WRITER_MODEL = "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
-CHAPTER_STAGE4_WRITER_MODEL = "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
+CHAPTER_STAGE4_WRITER_MODEL = "google://gemini-1.5-flash-002"
 CHAPTER_REVISION_WRITER_MODEL = (
     "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
 )
@@ -19,6 +15,28 @@ INFO_MODEL = "google://gemini-1.5-flash-002"  # Note this value is overridden by
 SCRUB_MODEL = "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
 CHECKER_MODEL = "google://gemini-1.5-flash-002"  # Model used to check results
 TRANSLATOR_MODEL = "google://gemini-1.5-flash-002"
+
+MODELS = [
+    INITIAL_OUTLINE_WRITER_MODEL,
+    CHAPTER_OUTLINE_WRITER_MODEL,
+    CHAPTER_STAGE1_WRITER_MODEL,
+    CHAPTER_STAGE2_WRITER_MODEL,
+    CHAPTER_STAGE3_WRITER_MODEL,
+    CHAPTER_STAGE4_WRITER_MODEL,
+    CHAPTER_REVISION_WRITER_MODEL,
+    REVISION_MODEL,
+    EVAL_MODEL,
+    INFO_MODEL,
+    SCRUB_MODEL,
+    CHECKER_MODEL,
+    TRANSLATOR_MODEL,
+]
+
+BASE_DIR = "story_workdir"
+
+SAVE_PLOT = True
+SAVE_CHARACTER_DEVELOPMENT = True
+SAVE_DIALOGUE = True
 
 #OLLAMA_CTX = 8192
 OLLAMA_CTX = 28192

@@ -15,13 +15,10 @@ dotenv.load_dotenv()
 
 class Interface:
 
-    def __init__(
-        self,
-        Models: list = [],
-    ):
+    def __init__(self):
         self.Clients: dict = {}
         self.History = []
-        self.LoadModels(Models)
+        self.LoadModels(Writer.Config.MODELS)  # Pass models from configuration
 
     def ensure_package_is_installed(self, package_name):
         try:
@@ -477,3 +474,51 @@ class Interface:
         else:
             # legacy support for `Model` format
             return "ollama", _Model, "localhost:11434", None
+
+    def save_stage(self, stage_content: str, stage_name: str):
+        base_dir = Writer.Config.BASE_DIR
+        os.makedirs(base_dir)  # Fix indentation error
+        if not os.path.exists(base_dir):
+            os.makedirs(base_dir)
+        stage_path = os.path.join(base_dir, f"{stage_name}_stage.txt")
+        with open(stage_path, "w") as f:
+            f.write(stage_content)
+    
+    def load_stage(self, stage_name: str) -> str:
+        stage_path = os.path.join(Writer.Config.BASE_DIR, f"{stage_name}_stage.txt")
+        if os.path.exists(stage_path):
+            with open(stage_path, "r") as f:
+                return f.read()
+        return ""
+    
+    def process_stages(self):
+        # Example usage of save_stage and load_stage
+        plot = self.load_stage("plot")
+        if not plot:
+            plot = self.generate_plot()
+            self.save_stage(plot, "plot")
+        
+        char_dev = self.load_stage("character_development")
+        if not char_dev:
+            char_dev = self.generate_character_development()
+            self.save_stage(char_dev, "character_development")
+        
+        dialogue = self.load_stage("dialogue")
+        if not dialogue:
+            dialogue = self.generate_dialogue()
+            self.save_stage(dialogue, "dialogue")
+        
+        # Removed reference to generate_story()
+        return plot, char_dev, dialogue
+
+    def generate_plot(self):
+        # Placeholder implementation for generating plot
+        return "Generated plot content"
+
+    def generate_character_development(self):
+        # Placeholder implementation for generating character development
+        return "Generated character development content"
+
+    def generate_dialogue(self):
+        # Placeholder implementation for generating dialogue
+        return "Generated dialogue content"

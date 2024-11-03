@@ -129,22 +129,24 @@ cd .. && ./Write.py \
     
 elif (choice == "4"):
     os.system(f'''
-cd .. && ./Write.py \
--Seed 999 \
--Prompt {Prompt} \
--InitialOutlineModel google://gemini-1.5-pro \
--ChapterOutlineModel google://gemini-1.5-pro \
--ChapterS1Model google://gemini-1.5-pro \
--ChapterS2Model google://gemini-1.5-pro \
--ChapterS3Model google://gemini-1.5-pro \
--ChapterS4Model google://gemini-1.5-pro \
--ChapterRevisionModel google://gemini-1.5-pro \
--RevisionModel google://gemini-1.5-pro \
--EvalModel google://gemini-1.5-pro \
--InfoModel google://gemini-1.5-pro \
--NoScrubChapters \
--Debug {ExtraFlags}
-              ''')
+    cd .. && ./Write.py \
+    -Seed 999 \
+    -Prompt {Prompt} \
+    -InitialOutlineModel google://gemini-1.5-pro \
+    -ChapterOutlineModel google://gemini-1.5-pro \
+    -ChapterS1Model google://gemini-1.5-pro \
+    -ChapterS2Model google://gemini-1.5-pro \
+    -ChapterS3Model google://gemini-1.5-pro \
+    -ChapterS4Model google://gemini-1.5-pro \
+    -ChapterRevisionModel google://gemini-1.5-pro \
+    -RevisionModel google://gemini-1.5-pro \
+    -EvalModel google://gemini-1.5-pro \
+    --SavePlot \
+    --SaveCharacterDevelopment \
+    --SaveDialogue \
+    --BaseDir /path/to/test_workdir \
+    -Debug {ExtraFlags}
+                  ''')
     
 elif (choice == "5"):
     os.system(f'''
