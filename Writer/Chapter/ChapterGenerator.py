@@ -1,4 +1,5 @@
 import json
+import time
 
 import Writer.LLMEditor
 import Writer.PrintUtils
@@ -7,6 +8,8 @@ import Writer.Chapter.ChapterGenSummaryCheck
 import Writer.Prompts
 
 import Writer.Scene.ChapterByScene
+
+SLOWER_WAIT_TIME = 3
 
 def GenerateChapter(
     Interface,
@@ -71,6 +74,7 @@ def GenerateChapter(
         ChapterSegmentMessages,
         Writer.Config.CHAPTER_STAGE1_WRITER_MODEL, _MinWordCount=120
     )  # CHANGE THIS MODEL EVENTUALLY - BUT IT WORKS FOR NOW!!!
+    time.sleep(SLOWER_WAIT_TIME)  # Wait to avoid quota limits
     ThisChapterOutline: str = Interface.GetLastMessageText(ChapterSegmentMessages)
     _Logger.Log(f"Created Chapter Specific Outline", 4)
 
@@ -97,6 +101,7 @@ def GenerateChapter(
             ChapterSummaryMessages,
             Writer.Config.CHAPTER_STAGE1_WRITER_MODEL, _MinWordCount=100
         )  # CHANGE THIS MODEL EVENTUALLY - BUT IT WORKS FOR NOW!!!
+        time.sleep(SLOWER_WAIT_TIME)  # Wait to avoid quota limits
         FormattedLastChapterSummary: str = Interface.GetLastMessageText(
             ChapterSummaryMessages
         )
@@ -142,6 +147,7 @@ def GenerateChapter(
                 _SeedOverride=IterCounter + Writer.Config.SEED,
                 _MinWordCount=100
             )
+            time.sleep(SLOWER_WAIT_TIME)  # Wait to avoid quota limits
             IterCounter += 1
             Stage1Chapter: str = Interface.GetLastMessageText(Messages)
             _Logger.Log(
@@ -201,6 +207,7 @@ def GenerateChapter(
             _SeedOverride=IterCounter + Writer.Config.SEED,
             _MinWordCount=100
         )
+        time.sleep(SLOWER_WAIT_TIME)  # Wait to avoid quota limits
         IterCounter += 1
         Stage2Chapter: str = Interface.GetLastMessageText(Messages)
         _Logger.Log(
@@ -254,6 +261,7 @@ def GenerateChapter(
             _SeedOverride=IterCounter + Writer.Config.SEED,
             _MinWordCount=100
         )
+        time.sleep(SLOWER_WAIT_TIME)  # Wait to avoid quota limits
         IterCounter += 1
         Stage3Chapter: str = Interface.GetLastMessageText(Messages)
         _Logger.Log(
@@ -322,6 +330,7 @@ def GenerateChapter(
             Writer.Config.CHAPTER_REVISION_WRITER_MODEL,
             _MinWordCount=50
         )
+        time.sleep(SLOWER_WAIT_TIME)  # Wait to avoid quota limits
         Resolution: str = Interface.GetLastMessageText(ResolutionMessages)
         
         _Logger.Log(f"LLM Resolution: {Resolution}", 2)
@@ -380,6 +389,7 @@ def ReviseChapter(Interface, _Logger, _Chapter, _Feedback, _History: list = []):
         _Logger, Messages, Writer.Config.CHAPTER_REVISION_WRITER_MODEL,
         _MinWordCount=100
     )
+    time.sleep(SLOWER_WAIT_TIME)  # Wait to avoid quota limits
     SummaryText: str = Interface.GetLastMessageText(Messages)
     _Logger.Log("Done Revising Chapter", 5)
 
