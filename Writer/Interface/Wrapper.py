@@ -274,6 +274,7 @@ class Interface:
                     _Messages.append(self.StreamResponse(Stream, Provider))
                     break
                 except Exception as e:
+                    time.sleep(11)
                     if '429' in str(e):
                         _Logger.Log("429 Error: Resource exhausted. Waiting 60 seconds before retrying.", 2)
                         time.sleep(60)  # Wait before retrying
@@ -291,6 +292,7 @@ class Interface:
                             raise Exception(
                                 "Generation Failed, Max Retries Exceeded, Aborting"
                             )
+                        time.sleep(22)
                     Retries += 1
                     if Retries >= MaxRetries:
                         _Logger.Log("Max Retries Exceeded During Generation, Aborting!", 1)
@@ -331,6 +333,7 @@ class Interface:
                     _Messages.append(self.StreamResponse(Stream, Provider))
                     break
                 except Exception as e:
+                    time.sleep(60)
                     if MaxRetries > 0:
                         _Logger.Log(
                             f"Exception During Generation '{e}', {MaxRetries} Retries Remaining",

@@ -344,6 +344,7 @@ for i in range(1, NumChapters + 1):
         SysLogger.Log(f"Chapter Word Count: {ChapterWordCount}", 2)
 
     except Exception as e:
+        time.sleep(2)
         SysLogger.Log(f"Failed to generate Chapter {i}: {str(e)}", 1)
         # Implement retry logic or append a placeholder to maintain list consistency
         retry_count = 0
@@ -378,6 +379,7 @@ for i in range(1, NumChapters + 1):
         else:
             SysLogger.Log(f"Failed to generate Chapter {i} after {max_retries} retries. Skipping.", 1)
             Chapters.append(f"### Chapter {i}\n\n*Generation Failed: Chapter skipped.*")
+            time.sleep(2)
 
 
 # Now edit the whole thing together
