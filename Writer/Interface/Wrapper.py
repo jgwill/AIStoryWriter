@@ -336,8 +336,8 @@ class Interface:
                 except Exception as e:
                     time.sleep(60)
                     if '429' in str(e):
-                        _Logger.Log("429 Error: Resource exhausted. Waiting 60 seconds before retrying.", 2)
-                        time.sleep(60)
+                        _Logger.Log("Detected Resource exhaustion. Waiting 120 seconds before retrying.", 2)
+                        time.sleep(120)
                         
                     if MaxRetries > 0:
                         _Logger.Log(
