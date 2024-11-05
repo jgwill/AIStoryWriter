@@ -317,7 +317,7 @@ class Interface:
                 if "role" in m and m["role"] == "system":
                     m["role"] = "user"
 
-            MaxRetries = 7
+            MaxRetries = 100
             while True:
                 time.sleep(4)
                 try:
@@ -337,7 +337,7 @@ class Interface:
                     time.sleep(60)
                     if '429' in str(e):
                         _Logger.Log("Detected Resource exhaustion. Waiting 120 seconds before retrying.", 2)
-                        time.sleep(120)
+                        time.sleep(1200)
                         
                     if MaxRetries > 0:
                         _Logger.Log(

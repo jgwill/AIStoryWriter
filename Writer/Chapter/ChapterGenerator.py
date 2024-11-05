@@ -9,7 +9,7 @@ import Writer.Prompts
 
 import Writer.Scene.ChapterByScene
 
-SLOWER_WAIT_TIME = 3
+SLOWER_WAIT_TIME = 21
 
 def GenerateChapter(
     Interface,
