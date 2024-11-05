@@ -263,7 +263,7 @@ class Interface:
             # Change argument from 'messages' to 'prompt' for Ollama
             Stream = self.Clients[_Model].chat(
                 model=ProviderModel,
-                prompt=_Messages[-1]["content"],  # Use the latest message content as prompt
+                messages=_Messages,  # Replaced 'prompt' with 'messages'
                 stream=True,
                 options=ModelOptions,
             )
