@@ -430,7 +430,7 @@ As you write, remember to ask yourself the following questions:
     - What do the characters mean to each other?
     - Where are we located?
     - What are the stakes (is it high, is it low, what is at stake here)?
-    - What is the goal or solution to the conflict?
+    - What is their motivation and their internal conflict?
 
 Don't answer these questions directly, instead make your outline implicitly answer them. (Show, don't tell)
 
