@@ -392,10 +392,10 @@ CHAPTER_COMPLETE_PROMPT = """
 </CHAPTER>
 
 This chapter meets all of the following criteria (true or false):
-    - Pacing: Is the story rushing over certain plot points and excessively focusing on others?
-    - Details: How are things described? Is it repetitive? Is the word choice appropriate for the scene? Are we describing things too much or too little?
-    - Flow: Does each chapter flow into the next? Does the plot make logical sense to the reader? Does it have a specific narrative structure at play? Is the narrative structure consistent throughout the story?
-    - Genre: What is the genre? What language is appropriate for that genre? Do the scenes support the genre?
+- Pacing: Adequate speed and tension-resolution balance?
+- Details: Redundancy? Appropriate word choice and perspective?
+- Flow: Smooth transitions? Logical plot? Consistent narrative structure?
+- Genre: Correct genre identification? Appropriate language and scene support?
 
 Give a JSON formatted response, containing the string \"IsComplete\", followed by an boolean True/False.
 Please do not include any other text, just the JSON as your response will be parsed by a computer.
