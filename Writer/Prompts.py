@@ -344,17 +344,44 @@ CRITIC_CHAPTER_PROMPT = """<CHAPTER>
 {_Chapter}
 </CHAPTER>
 
-Please give feedback on the above chapter based on the following criteria:
-    - Pacing: Is the story rushing over certain plot points and excessively focusing on others?
-    - Details: How are things described? Is it repetitive? Is the word choice appropriate for the scene? Are we describing things too much or too little?
-    - Flow: Does each chapter flow into the next? Does the plot make logical sense to the reader? Does it have a specific narrative structure at play? Is the narrative structure consistent throughout the story?
-    - Genre: What is the genre? What language is appropriate for that genre? Do the scenes support the genre?
+Please give feedback on the above chapter using each StoryWrite judging criteria From YAML Data Structure:
+
+You format into sub points in each criteria and follow the YAML structure in your output, keep it short and don’t exaggerate in your comments with compliment (your comments are about corrective plan for the criteria.  If you judge that it can not be enhanced, dont comment).  Also do not add words such as “effectively” in your comments.
+
+```yaml
+evaluation_criteria:
+  - no: 1
+    criteria: Narrative Coherence
+    system_instruction: You are an experienced literary critic tasked with evaluating the narrative coherence of a science fiction story. Assess the logical flow of events, character development, and overall storytelling structure on a scale of 1-5, with 5 being the highest. Provide a brief comment explaining your score.
+  - no: 2
+    criteria: Thematic Depth
+    system_instruction: You are a literary scholar specializing in science fiction. Evaluate the depth and nuance of the central themes explored in the story, such as the balance between technology and nature, and the moral/philosophical implications, on a scale of 1-5, with 5 being the highest. Provide a brief comment explaining your score.
+  - no: 3
+    criteria: World-Building and Contextual Details
+    system_instruction: You are a world-building expert tasked with assessing the immersive quality and consistency of the Pyralia setting and Pirellian civilization depicted in the story. Evaluate the integration of historical, technological, and cultural elements on a scale of 1-5, with 5 being the highest. Provide a brief comment explaining your score.
+  - no: 4
+    criteria: Tension and Conflict
+    system_instruction: You are a narrative structure specialist evaluating the compelling nature of the dilemmas and challenges faced by the characters in the story. Assess the sense of stakes and consequences on a scale of 1-5, with 5 being the highest. Provide a brief comment explaining your score.
+  - no: 5
+    criteria: Characterization
+    system_instruction: You are a character development expert tasked with assessing the depth and complexity of the main characters, such as Elara, in the story. Evaluate the believability and relatability of their motivations and decision-making on a scale of 1-5, with 5 being the highest. Provide a brief comment explaining your score.
+  - no: 6
+    criteria: Pacing and Narrative Flow
+    system_instruction: You are a narrative structure specialist evaluating the pacing and rhythm of the story, including the balance between exposition, action, and contemplative moments. Assess the overall narrative flow on a scale of 1-5, with 5 being the highest. Provide a brief comment explaining your score.
+  - no: 7
+    criteria: Clarity and Concision
+    system_instruction: You are a technical writing expert tasked with assessing the clarity and concision of the story's communication of ideas and plot points. Evaluate the avoidance of unnecessary or redundant information on a scale of 1-5, with 5 being the highest. Provide a brief comment explaining your score.
+  - no: 8
+    criteria: Emotional Impact
+    system_instruction: You are a literary critic specializing in the emotional resonance of stories. Evaluate the story's ability to evoke emotional responses from the reader, including memorable and impactful moments, on a scale of 1-5, with 5 being the highest. Provide a brief comment explaining your score.
+  - no: 9
+    criteria: Originality and Creativity
+    system_instruction: You are an innovation expert tasked with assessing the uniqueness and imaginative elements of the story, such as the vortex phenomenon and Tilleric energy. Evaluate the innovative approach to established science fiction tropes on a scale of 1-5, with 5 being the highest. Provide a brief comment explaining your score.
+  - no: 10
+    criteria: Overall Cohesion and Impact
+    system_instruction: You are a senior literary critic with a holistic perspective. Evaluate the story's ability to seamlessly integrate all the above elements into a cohesive and compelling narrative, leaving a lasting impression and a sense of deeper meaning, on a scale of 1-5, with 5 being the highest. Provide a brief comment explaining your score.
+```
     
-    - Characters: Who are the characters in this chapter? What do they mean to each other? What is the situation between them? Is it a conflict? Is there tension? Is there a reason that the characters have been brought together?
-    - Development:  What are the goals of each character, and do they meet those goals? Do the characters change and exhibit growth? Do the goals of each character change over the story?
-    
-    - Dialogue: Does the dialogue make sense? Is it appropriate given the situation? Does the pacing make sense for the scene E.g: (Is it fast-paced because they're running, or slow-paced because they're having a romantic dinner)? 
-    - Disruptions: If the flow of dialogue is disrupted, what is the reason for that disruption? Is it a sense of urgency? What is causing the disruption? How does it affect the dialogue moving forwards? 
 """
 
 CHAPTER_COMPLETE_INTRO = "You are a helpful AI Assistant. Answer the user's prompts to the best of your abilities."
