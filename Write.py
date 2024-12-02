@@ -128,7 +128,7 @@ Parser.add_argument(
 )
 Parser.add_argument(
     "-OutlineMaxRevisions",
-    default=3,
+    default=2,
     type=int,
     help="Max number of revisions that the outline may have",
 )
@@ -140,7 +140,7 @@ Parser.add_argument(
 )
 Parser.add_argument(
     "-ChapterMaxRevisions",
-    default=3,
+    default=2,
     type=int,
     help="Max number of revisions that the chapter may have",
 )
@@ -176,7 +176,7 @@ Parser.add_argument(
 )
 Parser.add_argument(
     "-SleepTime",
-    default=20,
+    default=31,
     type=int,
     help="Time to wait between requests in seconds",
 )
