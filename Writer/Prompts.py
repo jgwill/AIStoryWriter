@@ -306,7 +306,7 @@ Again, remember to make your response JSON formatted with no extra words. It wil
 CRITIC_OUTLINE_INTRO = "You are a helpful AI Assistant. Answer the user's prompts to the best of your abilities."
 
 CRITIC_OUTLINE_PROMPT = """
-Please critique the following outline - make sure to provide constructive criticism on how it can be improved and point out any problems with it.
+Please critique the following outline - provide review on points to correct.
 
 <OUTLINE>
 {_Outline}
