@@ -334,7 +334,7 @@ class Interface:
                     _Messages.append(self.StreamResponse(Stream, Provider))
                     break
                 except Exception as e:
-                    time.sleep(60)
+                    time.sleep(1)
                     if '429' in str(e):
                         _Logger.Log("Detected Resource exhaustion. Waiting 120 seconds before retrying.", 2)
                         time.sleep(1200)
