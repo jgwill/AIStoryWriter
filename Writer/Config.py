@@ -1,31 +1,36 @@
 INITIAL_OUTLINE_WRITER_MODEL = (
-    "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
+    "google://gemini-1.5-pro-001"  # Note this value is overridden by the argparser
 )
-#gemini-1.5-flash-002
+#gemini-1.5-pro-002
 
 CHAPTER_OUTLINE_WRITER_MODEL = (
-    "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
+    "google://gemini-1.5-pro-002"  # Note this value is overridden by the argparser
 )
-CHAPTER_STAGE1_WRITER_MODEL = "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
-CHAPTER_STAGE2_WRITER_MODEL = "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
-CHAPTER_STAGE3_WRITER_MODEL = "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
-CHAPTER_STAGE4_WRITER_MODEL = "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
+CHAPTER_STAGE1_WRITER_MODEL = "google://gemini-1.5-pro-001"  # Note this value is overridden by the argparser
+CHAPTER_STAGE2_WRITER_MODEL = "google://gemini-1.5-pro-002"  # Note this value is overridden by the argparser
+CHAPTER_STAGE3_WRITER_MODEL = "google://gemini-1.5-pro-002"  # Note this value is overridden by the argparser
+CHAPTER_STAGE4_WRITER_MODEL = "google://gemini-1.5-pro-002"  # Note this value is overridden by the argparser
 CHAPTER_REVISION_WRITER_MODEL = (
-    "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
+    "google://gemini-1.0-pro-001"  # Note this value is overridden by the argparser
 )
-REVISION_MODEL = "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
-EVAL_MODEL = "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
-INFO_MODEL = "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
-SCRUB_MODEL = "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
-CHECKER_MODEL = "google://gemini-1.5-flash-002"  # Model used to check results
-TRANSLATOR_MODEL = "google://gemini-1.5-flash-002"
+#REVISION_MODEL = "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
+#ollama://llama3.1
 
-#OLLAMA_CTX = 8192
-OLLAMA_CTX = 28192
+REVISION_MODEL = "google://gemini-1.5-flash-002"  # Note this value is overridden by the argparser
+
+EVAL_MODEL = "ollama://llama3.1"  # Note this value is overridden by the argparser
+
+INFO_MODEL = "ollama://llama3.1"  # Note this value is overridden by the argparser
+SCRUB_MODEL = "google://gemini-1.5-pro-002"  # Note this value is overridden by the argparser
+CHECKER_MODEL = "ollama://llama3.1"  # Model used to check results
+TRANSLATOR_MODEL = "google://gemini-1.5-pro-002"
+
+OLLAMA_CTX = 8192
+#OLLAMA_CTX = 28192
 
 OLLAMA_HOST = "127.0.0.1:11434"
 
-SEED = 12  # Note this value is overridden by the argparser
+SEED = 11  # Note this value is overridden by the argparser
 
 TRANSLATE_LANGUAGE = ""  # If the user wants to translate, this'll be changed from empty to a language e.g 'French' or 'Russian'
 TRANSLATE_PROMPT_LANGUAGE = ""  # If the user wants to translate their prompt, this'll be changed from empty to a language e.g 'French' or 'Russian'
@@ -44,12 +49,13 @@ ENABLE_FINAL_EDIT_PASS = False  # Note this value is overridden by the argparser
 
 SCENE_GENERATION_PIPELINE = True
 
-OPTIONAL_OUTPUT_NAME = "mastery_unbound241102"
+OPTIONAL_OUTPUT_NAME = "mlc03"
 
 DEBUG = False
 
 # Tested models:
 "gemma2:9b"  # works as editor model, DO NOT use as writer model, it sucks
+"llama3.1"  # works as 
 "vanilj/midnight-miqu-70b-v1.5"  # works rather well as the writer, not well as anything else
 "command-r"
 "qwen:72b"
