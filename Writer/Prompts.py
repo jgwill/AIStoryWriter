@@ -104,7 +104,7 @@ This would be things like instructions for chapter length, overall vision, instr
 </EXAMPLE>
 
 Do NOT write the outline itself, just some extra context. Keep your responses short.
-
+Dont introduce nor conclude your answer, just output results.
 """
 
 CHAPTER_GENERATION_STAGE1 = """
@@ -247,7 +247,7 @@ Based on the following feedback:
 Do not reflect on the revisions, just write the improved chapter that addresses the feedback and prompt criteria.  
 Remember not to include any author notes."""
 
-SUMMARY_CHECK_INTRO = "You are a helpful AI Assistant. Answer the user's prompts to the best of your abilities."
+SUMMARY_CHECK_INTRO = "You are a helpful AI Assistant. Answer the user's prompts to the best of your abilities. Dont introduce nor conclude your answer, just output results."
 
 SUMMARY_CHECK_PROMPT = """
 Please summarize the following chapter:
@@ -269,7 +269,7 @@ Please summarize the following chapter outline:
 
 Do not include anything in your response except the summary."""
 
-SUMMARY_COMPARE_INTRO = "You are a helpful AI Assistant. Answer the user's prompts to the best of your abilities."
+SUMMARY_COMPARE_INTRO = "You are a helpful AI Assistant. Answer the user's prompts to the best of your abilities. Dont introduce nor conclude your answer, just output results."
 
 SUMMARY_COMPARE_PROMPT = """
 Please compare the provided summary of a chapter and the associated outline, and indicate if the provided content roughly follows the outline.
@@ -301,6 +301,7 @@ Start your suggestions with 'Important things to keep in mind as you write: \n'.
 It's okay if the summary isn't a complete perfect match, but it should have roughly the same plot, and pacing.
 
 Again, remember to make your response JSON formatted with no extra words. It will be fed directly to a JSON parser.
+Dont introduce nor conclude your answer, just output results. Again, remember to make your response JSON formatted with no extra words. 
 """
 
 CRITIC_OUTLINE_INTRO = "You are a helpful AI Assistant. Answer the user's prompts to the best of your abilities."
@@ -337,7 +338,7 @@ Give a JSON formatted response, containing the string \"IsComplete\", followed b
 Please do not include any other text, just the JSON as your response will be parsed by a computer.
 """
 
-JSON_PARSE_ERROR = "Please revise your JSON. It encountered the following error during parsing: {_Error}. Remember that your entire response is plugged directly into a JSON parser, so don't write **anything** except pure json."
+JSON_PARSE_ERROR = "Please revise your JSON. It encountered the following error during parsing: {_Error}. Remember that your entire response is plugged directly into a JSON parser, so don't write **anything** except pure json. Dont introduce nor conclude your answer, just output results. Dont apologize."
 
 CRITIC_CHAPTER_INTRO = "You are a helpful AI Assistant. Answer the user's prompts to the best of your abilities."
 CRITIC_CHAPTER_PROMPT = """<CHAPTER>
@@ -526,6 +527,7 @@ Given the above chapter, please clean it up so that it is ready to be published.
 That is, please remove any leftover outlines or editorial comments only leaving behind the finished story.
 
 Do not comment on your task, as your output will be the final print version.
+Dont introduce nor conclude your answer, just output results. Dont apologize.
 """
 
 STATS_PROMPT = """
@@ -539,7 +541,9 @@ Base your answers on the story written in previous messages.
 "Tags": (a string of tags separated by commas that describe the story)
 "OverallRating": (your overall score for the story from 0-100)
 
-Again, remember to make your response JSON formatted with no extra words. It will be fed directly to a JSON parser.
+Again, remember to make your response JSON formatted with no extra words. It will be fed directly to a JSON parser. 
+Dont introduce nor conclude your answer, just output results. Dont apologize.
+Again, remember to make your response JSON formatted with no extra words.
 """
 
 TRANSLATE_PROMPT = """
