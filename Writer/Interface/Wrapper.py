@@ -310,16 +310,27 @@ class Interface:
             MaxRetries = 3
             while True:
                 try:
-                    Stream = self.Clients[_Model].generate_content(
-                        contents=_Messages,
-                        stream=True,
-                        safety_settings={
-                            HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-                            HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-                            HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-                            HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-                        },
-                    )
+                    # Ensure contents is not empty
+                    if not _Messages:
+                        raise ValueError("Messages must not be empty")
+
+                    try:
+                        Stream = self.Clients[_Model].generate_content(
+                            contents=_Messages,
+                            stream=True,
+                            safety_settings={
+                                HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+                                HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+                                HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+                                HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+                            },
+                        )
+                    except TypeError as e:
+                        if str(e) == "contents must not be empty":
+                            _Logger.error("Contents must not be empty")
+                            raise
+                        else:
+                            raise
                     _Messages.append(self.StreamResponse(Stream, Provider))
                     break
                 except Exception as e:
@@ -411,6 +422,8 @@ class Interface:
             if _Provider == "ollama":
                 ChunkText = chunk["message"]["content"]
             elif _Provider == "google":
+                if not hasattr(chunk, 'text'):
+                    raise ValueError("Invalid operation: The `response.text` quick accessor requires the response to contain a valid `Part`, but none were returned.")
                 ChunkText = chunk.text
             else:
                 raise ValueError(f"Unsupported provider: {_Provider}")
